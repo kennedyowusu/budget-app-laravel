@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthenticationController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\UserExpensesController;
 use App\Http\Controllers\API\UserGroupController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('groups/{group}', [UserGroupController::class, 'show']);
     Route::put('groups/{group}', [UserGroupController::class, 'update']);
     Route::delete('groups/{group}', [UserGroupController::class, 'destroy']);
+
+    // Expenses routes
+    Route::get('expenses', [UserExpensesController::class, 'index']);
+    Route::post('expenses', [UserExpensesController::class, 'store']);
+    Route::get('expenses/{expense}', [UserExpensesController::class, 'show']);
+    Route::put('expenses/{expense}', [UserExpensesController::class, 'update']);
+    Route::delete('expenses/{expense}', [UserExpensesController::class, 'destroy']);
 
     Route::post('logout', [AuthenticationController::class, 'logout']);
 });
