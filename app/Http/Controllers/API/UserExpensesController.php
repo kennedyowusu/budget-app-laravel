@@ -98,20 +98,20 @@ class UserExpensesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(Expense $expense)
     {
         try {
             DB::beginTransaction();
 
-            if($user->id !== auth()->id()) {
+            if($expense->user->id !== auth()->id()) {
                 return response()->json(['message' => 'Unauthorized'], 401);
             }
 
-            $user->delete();
+            $expense->delete();
 
             DB::commit();
 
-            return response()->json(['message' => 'User deleted'], 200);
+            return response()->json(['message' => 'Expenses deleted'], 200);
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
