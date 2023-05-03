@@ -18,6 +18,11 @@ class Group extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function expenses()
+    {
+        return $this->belongsToMany(Expense::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
