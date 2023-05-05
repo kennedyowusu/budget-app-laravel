@@ -25,7 +25,7 @@ class GroupRequest extends FormRequest
             'name' => 'required|string|max:255|unique:groups,name',
             'icon' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
-            'is_active' => 'required|boolean',
+            'is_active' => 'nullable|boolean',
             'user_id' => 'required|integer|exists:users,id',
         ];
     }
