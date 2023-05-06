@@ -16,11 +16,19 @@ class UserExpensesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function index($group_id)
     {
-        $user = auth()->user()->load('expenses');
-        return ExpenseResource::collection($user->expenses);
+        $user = auth()->user();
+        $expenses = $user->expenses()->where('group_id', $group_id)->get();
+        return ExpenseResource::collection($expenses);
     }
+
+    // public function index()
+    // {
+    //     $user = auth()->user()->load('expenses');
+    //     return ExpenseResource::collection($user->expenses);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -39,7 +47,7 @@ class UserExpensesController extends Controller
                 return response()->json(['message' => 'Unauthorized'], 401);
             }
 
-            $expense = Expense::create($validatedData);
+            $expense = $group->expenses()->create($validatedData);
 
             DB::commit();
 
@@ -48,11 +56,10 @@ class UserExpensesController extends Controller
             DB::rollBack();
 
             Log::error($th->getMessage());
+            Log::error($th->getTraceAsString());
             Log::error($request->validated());
 
             return response()->json(['message' => 'Something went wrong'], 500);
-        } finally {
-            DB::commit();
         }
     }
 

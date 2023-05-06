@@ -34,7 +34,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('groups/{group}', [UserGroupController::class, 'destroy']);
 
     // Expenses routes
-    Route::get('expenses', [UserExpensesController::class, 'index']);
+
+    Route::get('groups/{group_id}/expenses', [UserExpensesController::class, 'index']);
+    // Route::get('expenses', [UserExpensesController::class, 'index']);
     Route::post('expenses', [UserExpensesController::class, 'store']);
     Route::get('expenses/{expense}', [UserExpensesController::class, 'show']);
     Route::put('expenses/{expense}', [UserExpensesController::class, 'update']);
