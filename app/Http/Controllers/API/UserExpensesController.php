@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ExpenseRequest;
 use App\Http\Resources\ExpenseResource;
 use App\Models\Expense;
+use App\Models\Group;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -31,6 +32,12 @@ class UserExpensesController extends Controller
 
             $validatedData = $request->validated();
             $validatedData['user_id'] = auth()->id();
+
+            $group = Group::findOrFail($validatedData['group_id']);
+
+            if($group->user_id !== auth()->id()) {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
 
             $expense = Expense::create($validatedData);
 
