@@ -25,6 +25,7 @@ class ExpenseRequest extends FormRequest
             'name' => 'required|string|max:255',
             'amount' => 'required|numeric',
             'user_id' => 'required|exists:users,id',
+            'group_id' => 'required|exists:groups,id',
         ];
     }
 }

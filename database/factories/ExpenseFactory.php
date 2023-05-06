@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Group;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,6 +22,7 @@ class ExpenseFactory extends Factory
             'name' => $this->faker->name,
             'amount' => $this->faker->randomFloat(2, 0, 1000),
             'user_id' => User::factory(),
+            'group_id' => Group::factory(),
         ];
     }
 }
