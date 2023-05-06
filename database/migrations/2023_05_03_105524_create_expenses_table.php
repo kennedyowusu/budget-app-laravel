@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal('amount', 8, 2);
             $table->timestamps();
 
+            $table->foreignId('group_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
 
             $table->index(['name']);
